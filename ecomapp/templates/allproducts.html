@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+
+{% block title %} All Products {% endblock %}
+
+{% block content %}
+<div class="container">
+    <h3>All Products</h3>
+    <hr>
+    {% for results in categories %}
+    <h4>{{results.title}}</h4>
+    <div class="row">
+        {% for result in results.product_set.all %}
+<div class="col-lg-4 col-md-4 col-sm-6 col-12 ">
+<div class="m-3">
+    <img src="{{result.image.url}}" alt="" width="250px" height="250px">
+    <h4> <a href="{% url 'ecomapp:productdetail' result.slug %}" style="text-decoration: none;">{{result.title}}</a> </h4>
+    <p> <span style="font-size: 25px; color: #b12704;"> ₹{{result.selling_price}}</span>  <strike style="color: #555555;">₹{{result.marked_price}}</strike> </p>
+    <a href="{% url 'ecomapp:addtocart' result.id %}" class="btn btn-primary">Add To Cart</a> 
+</div>
+</div>
+{% endfor %}
+    </div>
+    {% endfor %}
+</div>
+{% endblock  %}

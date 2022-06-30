@@ -1,0 +1,46 @@
+{% extends 'base.html' %}
+
+{% block title %} My Cart {% endblock  %}
+
+{% block content %}
+<div class="container">
+    <div class="row">
+        <div class="col-lg-8">
+            <h4>Items in the cart</h4>
+            <table class="table">
+                <thead>
+                <tr>
+                    <th>Sn</th>
+                    <th>Product</th>
+                    <th>Rate</th>
+                    <th>Quantity</th>
+                    <th>Subtotal</th>
+                    <th>Action</th>
+                </tr>
+                </thead>
+                <tbody>
+                    {% for result in cart.cartproduct_set.all %}
+                    <tr>
+                        <td>{{forloop.counter}}</td>
+                        <td>{{result.product.title}}</td>
+                        <td>{{result.rate}}</td>
+                        <td>{{result.quantity}}</td>
+                        <td>{{result.subtotal}}</td>
+                        <td>
+                            <a href="" class="btn btn-primary">+</a>
+                            <a href="" class="btn btn-warning">-</a>
+                            <a href="" class="btn btn-danger">x</a>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                    <tr>
+                        <th colspan="4" class="text-right">Total: </th>
+                        <th><b><span style=" color: #b12704;"> ₹{{cart.total}}</span></b></th>
+                        <form><script src="https://checkout.razorpay.com/v1/payment-button.js" data-payment_button_id="pl_Jmb4hczBmoy1XA" data-prefill.total={{cart.total}} async> </script> </form>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+{% endblock  %}
